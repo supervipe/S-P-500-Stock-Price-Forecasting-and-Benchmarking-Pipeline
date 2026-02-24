@@ -5,16 +5,29 @@ Stock Price Analysis, Modeling, and Dashboard
 
 This project analyzes historical daily stock prices for S&P 500 companies (2013–2018) using Python. The work is organized into three parts:
 
-Part 1: Data Storage and Retrieval  
-Compares CSV vs Parquet formats using benchmarking (file size, read time, write time) at multiple scales (1x, 10x, 100x).
+### Part 1 – Design and Library Choices
 
-Part 2: Data Manipulation, Analysis, and Modeling  
-Adds technical indicators to the dataset and trains machine learning models to predict the next-day closing price. Performance is compared between Pandas and Polars.
+CSV was used as the baseline format because it is simple, human-readable, and commonly used for data exchange. Parquet was selected as the alternative format because it is a columnar storage format designed for analytics workloads.
 
-Part 3: Dashboard  
-Implements a Streamlit dashboard to visualize predictions, show model metrics, and display benchmarking results from Parts 1 and 2.
+Parquet supports compression (Snappy) and column-based access, which significantly reduces file size and improves read performance as data scales. Benchmarking was performed at 1x, 10x, and 100x scales to evaluate how each format behaves under increasing data volume.
 
-The assignment requirements are described in the provided document. :contentReference[oaicite:0]{index=0}
+### Part 2 – Library and Model Choices
+
+Pandas and Polars were selected to compare performance between a widely adopted data analysis library (Pandas) and a newer, performance-oriented alternative (Polars). Both libraries were used to compute technical indicators and prepare data for modeling.
+
+Two technical indicators were chosen:
+- SMA (20-day) to capture medium-term price trends
+- RSI (14-day) to capture price momentum
+
+Two regression models were selected:
+- Linear Regression as a simple, interpretable baseline
+- Random Forest Regressor to model non-linear relationships
+
+MAE and RMSE were used as evaluation metrics because the task is a regression problem involving continuous price values. Classification metrics such as accuracy or recall are not applicable.
+
+### Part 3 – Dashboard
+
+Streamlit was selected for the dashboard implementation due to its simplicity, popularity, and tight integration with Python data science workflows. It allows rapid development of interactive dashboards with minimal boilerplate code and is well-suited for prototyping and academic demonstrations.
 
 ## Project Structure
 ```text
